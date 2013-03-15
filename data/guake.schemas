@@ -16,6 +16,18 @@
         </schema>
 
         <schema>
+            <key>/schemas/apps/guake/general/window_monitor</key>
+            <applyto>/apps/guake/general/window_monitor</applyto>
+            <owner>guake</owner>
+            <type>int</type>
+            <default>0</default>
+            <locale name="C">
+                <short>Window position on multirples monitors.</short>
+                <long>Window position behavior in multiples monitors.</long>
+            </locale>
+        </schema>
+
+        <schema>
             <key>/schemas/apps/guake/general/use_login_shell</key>
             <applyto>/apps/guake/general/use_login_shell</applyto>
             <owner>guake</owner>

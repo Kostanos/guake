@@ -290,6 +290,41 @@
                                 <property name="spacing">6</property>
                                 <property name="homogeneous">True</property>
                                 <child>
+                                  <widget class="GtkHBox" id="hbox5">
+                                    <property name="visible">True</property>
+                                    <property name="can_focus">False</property>
+                                    <child>
+                                      <widget class="GtkLabel" id="lblChooseWindowMonitor1">
+                                        <property name="visible">True</property>
+                                        <property name="xalign">0</property>
+                                        <property name="label" translatable="yes">Appeares on monitor:</property>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">0</property>
+                                      </packing>
+                                    </child>
+                                    <child>
+                                      <widget class="GtkComboBox" id="window_monitor">
+                                        <property name="visible">True</property>
+                                        <property name="items" translatable="yes"/>
+                                        <signal name="changed" handler="on_window_monitor_changed" swapped="no"/>
+                                      </widget>
+                                      <packing>
+                                        <property name="expand">True</property>
+                                        <property name="fill">True</property>
+                                        <property name="position">1</property>
+                                      </packing>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="expand">True</property>
+                                    <property name="fill">True</property>
+                                    <property name="position">0</property>
+                                  </packing>
+                                </child>
+                                <child>
                                   <widget class="GtkCheckButton" id="window_ontop">
                                     <property name="label" translatable="yes">Stay on top</property>
                                     <property name="visible">True</property>

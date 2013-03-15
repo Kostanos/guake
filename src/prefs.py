@@ -43,6 +43,10 @@ SHELLS_FILE = '/etc/shells'
 # string to show in prefereces dialog for user shell option
 USER_SHELL_VALUE = _('<user shell>')
 
+# string to show in preferences dialog for default window monitor option
+WINDOW_MONITOR_DEFAULT_VALUE = _('Main monitor (default)')
+WINDOW_MONITOR_MOUSE_CURSOR_VALUE = _('Mouse cursor monitor')
+
 # translating our types to vte types
 ERASE_BINDINGS = {'ASCII DEL': 'ascii-delete',
                   'Escape sequence': 'delete-sequence',
@@ -156,6 +160,15 @@ class PrefsCallbacks(object):
         """Changes the activity of use_popup in gconf
         """
         self.client.set_bool(KEY('/general/use_popup'), chk.get_active())
+
+    def on_window_monitor_changed(self, combo):
+        """Changes the activity of window_monitor in gconf
+        """
+        citer = combo.get_active_iter()
+        if not citer:
+            return
+        window_monitor = combo.get_active()
+        self.client.set_int(KEY('/general/window_monitor'), window_monitor)
 
     def on_window_ontop_toggled(self, chk):
         """Changes the activity of window_ontop in gconf
@@ -317,6 +330,7 @@ class PrefsDialog(SimpleGladeApp):
         treeview.append_column(column)
 
         self.populate_shell_combo()
+        self.populate_window_monitor_combo()
         self.populate_keys_tree()
         self.load_configs()
         self.get_widget('config-window').hide()
@@ -471,6 +485,12 @@ class PrefsDialog(SimpleGladeApp):
         value = self.client.get_bool(KEY('/general/prompt_on_quit'))
         self.get_widget('prompt_on_quit').set_active(value)
 
+        # window_monitor
+        combo = self.get_widget('window_monitor')
+        # get the value for window monitor position. If unset, set to 0.
+        value = self.client.get_int(KEY('/general/window_monitor')) or 0
+        combo.set_active(value)
+
         # ontop
         value = self.client.get_bool(KEY('/general/window_ontop'))
         self.get_widget('window_ontop').set_active(value)
@@ -563,6 +583,18 @@ class PrefsDialog(SimpleGladeApp):
 
         for i in get_binaries_from_path(PYTHONS):
             cb.append_text(i)
+
+    def populate_window_monitor_combo(self):
+        """Read the monitors number.
+        """
+        cb = self.get_widget('window_monitor')
+        cb.append_text(WINDOW_MONITOR_DEFAULT_VALUE)
+        cb.append_text(WINDOW_MONITOR_MOUSE_CURSOR_VALUE)
+        screen = self.get_widget('config-window').get_screen()
+        num_monitors = screen.get_n_monitors()
+        for i in range(num_monitors):
+            plug_name = screen.get_monitor_plug_name(i)
+            cb.append_text("(" + str(i) + ") - " + plug_name)
 
     def populate_keys_tree(self):
         """Reads the HOTKEYS global variable and insert all data in
