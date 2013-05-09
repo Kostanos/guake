@@ -855,7 +855,8 @@ class Guake(SimpleGladeApp):
         # blank screen before adding the tab.
         if not self.term_list:
             self.add_tab()
-
+        
+    	self.window.set_keep_below(False)
         self.window.show()
         self.client.notify(KEY('/general/window_height'))
 
@@ -880,6 +881,7 @@ class Guake(SimpleGladeApp):
         """Hides the main window of the terminal and sets the visible
         flag to False.
         """
+        self.window.set_keep_below(True)
         self.window.hide() # Don't use hide_all here!
         fullscreen = self.state_by_workspaces[self.current_workspace] >= 2
         state = fullscreen * 2
