@@ -858,6 +858,7 @@ class Guake(SimpleGladeApp):
         if not self.term_list:
             self.add_tab()
 
+		self.window.set_keep_below(False)
         # move to the active monitor first (with the extra pixel)
         # so the window will appears correctly after show it
         window_rect = self.get_final_window_rect()
@@ -886,6 +887,7 @@ class Guake(SimpleGladeApp):
         """Hides the main window of the terminal and sets the visible
         flag to False.
         """
+        self.window.set_keep_below(True)
         self.window.hide() # Don't use hide_all here!
         fullscreen = self.state_by_workspaces[self.current_workspace] >= 2
         state = fullscreen * 2
