@@ -59,6 +59,9 @@ Under Debian/Ubuntu, the following command should install all the build
 dependencies:
 sudo apt-get build-dep guake
 
+You will also need libgconf2-dev library in Ubuntu
+sudo apt-get install libgconf2-dev
+
 
 INSTALLATION
 ~~~~~~~~~~~~
