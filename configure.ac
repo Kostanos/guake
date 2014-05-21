@@ -78,6 +78,7 @@ if test x"$GCONFTOOL" = xno; then
     AC_MSG_ERROR([gconftool-2 executable not found in your path - should be installed with GConf])
 fi
 AM_GCONF_SOURCE_2
+AM_PROG_AR
 
 dnl Internationalization
 GETTEXT_PACKAGE=guake
